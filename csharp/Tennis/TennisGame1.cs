@@ -1,3 +1,5 @@
+using System;
+
 namespace Tennis
 {
     public class TennisGame1 : ITennisGame
@@ -28,28 +30,32 @@ namespace Tennis
             }
             else
             {
-                for (var i = 1; i < 3; i++)
-                {
-                    if (i == 1) tempScore = _player1Score;
-                    else { score += "-"; tempScore = _player2Score; }
-                    switch (tempScore)
-                    {
-                        case 0:
-                            score += "Love";
-                            break;
-                        case 1:
-                            score += "Fifteen";
-                            break;
-                        case 2:
-                            score += "Thirty";
-                            break;
-                        case 3:
-                            score += "Forty";
-                            break;
-                    }
-                }
+                score = GetCurrentScore(_player1Score, _player2Score);
             }
             return score;
+        }
+
+        private string GetCurrentScore(int player1Score, int player2Score)
+        {
+            var score = GetScoreName(player1Score);
+
+            score += "-"; 
+            
+            score += GetScoreName(player2Score);
+                
+            return score;
+        }
+
+        private static string GetScoreName(int tempScore)
+        {
+            return tempScore switch
+            {
+                0 => "Love",
+                1 => "Fifteen",
+                2 => "Thirty",
+                3 => "Forty",
+                _ => throw new Exception("Invalid score")
+            };
         }
 
         private string ManageDeuceGame(int player1Score, int player2Score)
