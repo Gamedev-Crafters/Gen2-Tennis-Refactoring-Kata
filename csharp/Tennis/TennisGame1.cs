@@ -24,11 +24,7 @@ namespace Tennis
             }
             else if (_player1Score >= 4 || _player2Score >= 4)
             {
-                var minusResult = _player1Score - _player2Score;
-                if (minusResult == 1) score = "Advantage player1";
-                else if (minusResult == -1) score = "Advantage player2";
-                else if (minusResult >= 2) score = "Win for player1";
-                else score = "Win for player2";
+                score = ManageDeuceGame(_player1Score, _player2Score);
             }
             else
             {
@@ -54,6 +50,18 @@ namespace Tennis
                 }
             }
             return score;
+        }
+
+        private string ManageDeuceGame(int player1Score, int player2Score)
+        {
+            var player1Advantage = player1Score - player2Score;
+            return player1Advantage switch
+            {
+                1 => "Advantage player1",
+                -1 => "Advantage player2",
+                >= 2 => "Win for player1",
+                _ => "Win for player2"
+            };
         }
 
         private string GetTitleDrawScore(int drawScore)
