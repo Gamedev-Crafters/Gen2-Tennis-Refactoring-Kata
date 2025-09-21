@@ -18,8 +18,7 @@ namespace Tennis
         public string GetScore()
         {
             string score = "";
-            var tempScore = 0;
-            
+
             if (_player1Score == _player2Score)
             {
                 score = GetTitleDrawScore(_player1Score);
@@ -32,18 +31,13 @@ namespace Tennis
             {
                 score = GetCurrentScore(_player1Score, _player2Score);
             }
+            
             return score;
         }
 
         private string GetCurrentScore(int player1Score, int player2Score)
         {
-            var score = GetScoreName(player1Score);
-
-            score += "-"; 
-            
-            score += GetScoreName(player2Score);
-                
-            return score;
+             return string.Concat(GetScoreName(player1Score), "-", GetScoreName(player2Score));
         }
 
         private static string GetScoreName(int tempScore)
